@@ -184,9 +184,9 @@ const BuyPage = () => {
             <footer className="site-footer">
                 <div className="footer-content">
                     <div className="footer-section">
-                        <h3>PropertyLink.ng</h3>
+                        <h3>Enuluxe.ng</h3>
                         <p>
-                            PropertyLink.ng is now available on iOS, Android and Chrome. Use
+                            Enuluxe.ng is now available on iOS, Android and Chrome. Use
                             our website to explore the world.
                         </p>
                     </div>
