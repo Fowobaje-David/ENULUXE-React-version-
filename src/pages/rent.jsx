@@ -232,7 +232,7 @@ const RentPage = () => {
                     <div className="footer-section">
                         <h4>About Us</h4>
                         <ul>
-                            <li><a href="Contact.jsx">Contact Us</a></li>
+                            <li><a href="/Contact">Contact Us</a></li>
                             <li><a href="/register">Register</a></li>
                             <li><a href="/login">Login</a></li>
                         </ul>
