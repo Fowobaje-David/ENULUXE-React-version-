@@ -27,7 +27,7 @@ const Register = () => {
       return;
     }
 
-    // Here you would typically send the data to your backend
+    // sends the data to backend
     console.log('Registration data:', formData);
     alert('Registration successful! Welcome to Enuluxe.ng');
     
@@ -113,6 +113,8 @@ const Register = () => {
               onChange={handleInputChange}
               required 
             />
+
+
             <label htmlFor="terms">
               By clicking register, you agree to our
               <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
