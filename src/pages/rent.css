@@ -1,0 +1,222 @@
+/* Reset & Base */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+body { background: #f7f9fc; color: #333; }
+
+/* Hero Section */
+.rent-hero {
+    position: relative;
+    height: 60vh;
+    background: url("../../public/img.png") center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.hero-overlay {
+    background: rgba(11,11,69,0.55);
+    color: #fff;
+    padding: 2.2rem;
+    border-radius: 14px;
+    text-align: center;
+}
+.hero-overlay h1 { font-size: 2.6rem; margin-bottom: 0.8rem; font-weight: 600; }
+.hero-overlay p { font-size: 1.15rem; margin-bottom: 1.6rem; }
+
+/* Filter Bar */
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+.filter-bar select,
+.filter-bar input,
+.filter-bar button {
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 0.95rem;
+}
+.filter-bar button {
+    background: #0b0b45;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    font-weight: 500;
+    transition: background 0.3s, transform 0.2s;
+}
+.filter-bar button:hover { background: #1a1a80; transform: translateY(-2px); }
+
+/* Property Grid */
+.property-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2.5rem;
+    padding: 3rem 2rem;
+}
+.property-card {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.property-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+.property-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+.property-info { padding: 1.4rem; }
+.property-info h3 { font-size: 1.35rem; margin-bottom: 0.6rem; color: #0b0b45; }
+.property-info p { font-size: 0.95rem; margin-bottom: 0.35rem; color: #555; }
+.price { font-weight: 600; color: #0b0b45; margin: 0.9rem 0; }
+
+/* Buttons */
+.btn-group { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.btn {
+    flex: 1;
+    padding: 0.7rem;
+    text-align: center;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+.btn-details { border: 1px solid #0b0b45; color: #0b0b45; background: #fff; }
+.btn-details:hover { background: #0b0b45; color: #fff; }
+
+.btn-save { border: 1px solid #c3a414; color: #c3a414; background: #fff; }
+.btn-save:hover { background: #c3a414; color: #0b0b45; }
+
+.btn-rent { background: #0b0b45; color: #fff; }
+.btn-rent:hover { background: #1a1a80; }
+
+.transparent-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.35);
+    color: #fff;
+    z-index: 10;
+    flex-wrap: wrap; /* responsive */
+}
+
+/* Logo */
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+}
+.logo-extension {
+    color: #ffd700;
+}
+
+/* Nav */
+.transparent-header nav {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.transparent-header nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+.transparent-header nav a:hover {
+    color: #ffd700;
+}
+
+/* Auth Buttons */
+.auth-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.register-btn {
+    background: #fff;
+    color: #0b0b45;
+    padding: 0.4rem 0.9rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+.login-btn {
+    background: #0b0b45;
+    color: #fff;
+    padding: 0.4rem 0.9rem;
+    border-radius: 6px;
+    border: 1px solid #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+.login-btn:hover {
+    background: #1a1a80;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .transparent-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .transparent-header nav {
+        margin-top: 10px;
+    }
+    .auth-buttons {
+        margin-top: 10px;
+    }
+}
+
+/* Footer (EXACTLY like Buy’s final footer) */
+.site-footer { background: #282853; color: #fff; }
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 28px;
+    margin-bottom: 0;
+}
+.footer-section h3 { font-size: 1.5rem; margin-bottom: 12px; font-weight: 600; color: #fff; }
+.footer-section p { color: #a0a0a0; line-height: 1.6; margin-bottom: 14px; font-size: 0.95rem; max-width: 280px; }
+.footer-section h4 { font-size: 1.05rem; margin-bottom: 10px; font-weight: 600; color: #fff; position: relative; padding-bottom: 6px; }
+.footer-section h4::after {
+    content: ''; position: absolute; left: 0; bottom: 0; width: 40px; height: 2px;
+    background: rgba(255,255,255,0.35);
+}
+.footer-section ul { list-style: none; padding: 0; margin: 0; }
+.footer-section ul li { margin-bottom: 8px; }
+.footer-section ul li a {
+    color: #a0a0a0; text-decoration: none; transition: color 0.2s ease; font-size: 0.9rem; display: block;
+}
+.footer-section ul li a:hover { color: #fff; }
+.social-links { display: flex; gap: 12px; margin-top: 8px; }
+.social-links a {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.05);
+    color: #fff; font-size: 14px; transition: all 0.3s;
+}
+.social-links a:hover { background: rgba(255,255,255,0.15); transform: translateY(-3px); }
+.footer-bottom { background: #111; padding: 14px 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+.footer-bottom p { margin: 0; font-size: 0.85rem; color: #a0a0a0; }
+
+/* Responsive */
+@media (max-width: 992px) { .footer-content { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) {
+    .footer-content { grid-template-columns: 1fr; gap: 22px; }
+    .footer-section:not(:last-child) {
+        border-bottom: 1px solid rgba(255,255,255,0.10);
+        padding-bottom: 16px;
+    }
+}
