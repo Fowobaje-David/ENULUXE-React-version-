@@ -17,7 +17,7 @@ const BuyPage = () => {
             type: "duplex",
             bedrooms: 4,
             price: "mid",
-            location: "enugu",
+            location: "Independence Layout",
             img: "/Twin-duplex.jpg",
             title: "Luxury Duplex",
             details: "4 Beds • 4 Baths • 3,500 sqft",
@@ -29,11 +29,11 @@ const BuyPage = () => {
             type: "apartment",
             bedrooms: 2,
             price: "low",
-            location: "lagos",
+            location: "Udi",
             img: "/Air-bnb.jpg",
             title: "Modern Apartment",
             details: "2 Beds • 2 Baths • 1,200 sqft",
-            address: "Victoria Island, Lagos",
+            address: "Udi, Enugu",
             cost: "₦900,000"
         },
         {
@@ -41,11 +41,11 @@ const BuyPage = () => {
             type: "bungalow",
             bedrooms: 3,
             price: "mid",
-            location: "abuja",
+            location: "Owo",
             img: "/Bungalow.jpg",
             title: "Family Bungalow",
             details: "3 Beds • 2 Baths • 2,000 sqft",
-            address: "Garki, Abuja",
+            address: "Owo, Enugu",
             cost: "₦2,500,000"
         },
         {
@@ -53,11 +53,11 @@ const BuyPage = () => {
             type: "house",
             bedrooms: 5,
             price: "luxury",
-            location: "lagos",
+            location: "Nsukka",
             img: "/Semi-detached.jpg",
             title: "Luxury Mansion",
             details: "5 Beds • 6 Baths • 6,500 sqft",
-            address: "Lekki Phase 1, Lagos",
+            address: "Nsukka, Enugu",
             cost: "₦20,000,000"
         },
         {
@@ -65,11 +65,11 @@ const BuyPage = () => {
             type: "house",
             bedrooms: 3,
             price: "mid",
-            location: "lagos",
+            location: "Udenu",
             img: "/Semi-detached2.jpg",
             title: "Semi-detached",
             details: "3 Beds • 2 Baths • 2,500 sqft",
-            address: "Lekki Phase 1, Lagos",
+            address: "Udenu, Enugu",
             cost: "₦7,500,000"
         }
     ];
@@ -138,7 +138,7 @@ const BuyPage = () => {
 
                         <input
                             type="text"
-                            placeholder="Search by Location (e.g Enugu, Lagos)"
+                            placeholder="Search by Location (e.g Owo)"
                             value={filters.location}
                             onChange={(e) =>
                                 setFilters({ ...filters, location: e.target.value })
@@ -172,7 +172,7 @@ const BuyPage = () => {
                                     View Details
                                 </a>
                                 <a href="#" className="btn btn-buy">
-                                    Purchase
+                                    Book Inspection
                                 </a>
                             </div>
                         </div>
@@ -197,6 +197,7 @@ const BuyPage = () => {
                             <li><a href="/sell">Sell</a></li>
                             <li><a href="/rent">Rent</a></li>
                             <li><a href="/aboutus">About Us</a></li>
+                            {/*<li><a href="/paymentsuccess">Payment Success</a></li>*/}
                         </ul>
                     </div>
                     <div className="footer-section">

@@ -25,10 +25,10 @@ const RentPage = () => {
             type: "apartment",
             payment: "monthly",
             price: "low",
-            location: "lekki",
+            location: "Agbani",
             title: "1-Bedroom Flat",
             details: "1 Bed • 1 Bath • 800 sqft",
-            address: "Lekki Phase 2, Lagos",
+            address: "Agbani, Enugu",
             amount: "₦350,000 / Monthly",
             image: apartment1,
         },
@@ -37,10 +37,10 @@ const RentPage = () => {
             type: "apartment",
             payment: "quarterly",
             price: "mid",
-            location: "abuja",
+            location: "Achi",
             title: "Luxury Apartment",
             details: "2 Beds • 2 Baths • 1,200 sqft",
-            address: "Maitama, Abuja",
+            address: "Achi, Enugu",
             amount: "₦1,200,000 / Quarterly",
             image: apartment2,
         },
@@ -49,10 +49,10 @@ const RentPage = () => {
             type: "house",
             payment: "annually",
             price: "high",
-            location: "ikeja",
+            location: "Obimo",
             title: "Family House",
             details: "4 Beds • 3 Baths • 3,000 sqft",
-            address: "Ikeja GRA, Lagos",
+            address: "Obimo, Enugu",
             amount: "₦3,000,000 / Annually",
             image: house1,
         },
@@ -61,7 +61,7 @@ const RentPage = () => {
             type: "apartment",
             payment: "monthly",
             price: "low",
-            location: "enugu",
+            location: "Independence Layout",
             title: "Studio Apartment",
             details: "1 Bed • 1 Bath • 500 sqft",
             address: "Independence Layout, Enugu",
@@ -73,10 +73,10 @@ const RentPage = () => {
             type: "house",
             payment: "quarterly",
             price: "mid",
-            location: "portharcourt",
+            location: "Aku",
             title: "3-Bedroom Duplex",
             details: "3 Beds • 3 Baths • 2,200 sqft",
-            address: "Port Harcourt, Rivers",
+            address: "Aku, Enugu",
             amount: "₦800,000 / Quarterly",
             image: duplex,
         },
@@ -85,10 +85,10 @@ const RentPage = () => {
             type: "apartment",
             payment: "annually",
             price: "high",
-            location: "victoria island",
+            location: "Udi",
             title: "Penthouse Apartment",
             details: "3 Beds • 3 Baths • 2,800 sqft",
-            address: "Victoria Island, Lagos",
+            address: "Udi, Enugu",
             amount: "₦5,500,000 / Annually",
             image: penthouse,
         },
@@ -149,7 +149,7 @@ const RentPage = () => {
 
                         <input
                             type="text"
-                            placeholder="Search by Location (e.g. Lekki, Abuja)"
+                            placeholder="Search by Location (e.g. Udi, Owo)"
                             value={filters.location}
                             onChange={(e) =>
                                 setFilters({ ...filters, location: e.target.value })
@@ -184,7 +184,7 @@ const RentPage = () => {
                                     Save Rental
                                 </a>
                                 <a href="#" className="btn btn-rent">
-                                    Make Payment
+                                    Book Inspection
                                 </a>
                             </div>
                         </div>

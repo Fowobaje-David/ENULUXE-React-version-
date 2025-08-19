@@ -8,7 +8,7 @@ import AboutUs from "./pages/AboutUs";
 import Sell from "./pages/Sell";
 import Buy from './pages/buy';
 import Rent from './pages/rent';
-
+import PaymentSuccess from './pages/PaymentSuccess';
 function App() {
   return (
       <Router>
@@ -22,6 +22,8 @@ function App() {
             <Route path="/sell" element={<Sell />} />
               <Route path="/buy" element={<Buy />} />
               <Route path="/rent" element={<Rent />} />
+              <Route path="/paymentsuccess" element={<PaymentSuccess />} />
+
           </Routes>
         </div>
       </Router>
