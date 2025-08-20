@@ -1,197 +1,157 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from '../axios.jsx';
-
-const Register = () => {
-    const navigate = useNavigate();
-    const [form, setForm] = useState({
-        firstName: '',
-        surname: '',
-        email: '',
-        phonenumber: '',
-        password: '',
-        terms: false
-    });
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
-
-    const handleInputChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        setForm(prev => ({
-            ...prev,
-            [name]: type === 'checkbox' ? checked : value
-        }));
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        console.log('handleSubmit fired'); // to help and  check if form submits
-
-        if (!form.terms) {
-            alert('Please accept the terms and conditions.');
-            return;
-        }
-
-        console.log('Form data being sent:', form);
-
-        try {
-            await
-                axios.post(
-                    'https://realestateapis.onrender.com/user/signup',
-                    form
-                );
-
-            console.log('Response from backend:');
-            setSuccess('Registration successful! You can now log in.');
-            setError('');
-
-
-            setForm({
-                firstName: '',
-                surname: '',
-                email: '',
-                phonenumber: '',
-                password: '',
-                terms: false
-            });
-
-            // it will now redirect after 1.5 secs
-            setTimeout(() => navigate('/login'), 1500);
-        } catch (err) {
-            console.error('Error during registration:', err);
-
-            if (err.response) {
-                console.log('Backend response:', err.response.data);
-                setError(err.response.data.message || 'Registration failed');
-            } else {
-                setError('Registration failed.');
-            }
-
-            setSuccess('');
-        }
-    };
-
+import React from "react";
+import Header from "../components/Header.jsx";
+export default function AboutUs() {
     return (
-        <div>
-            {/* HEADER */}
-            <header
+
+        <div
+
+            style={{
+                backgroundImage: "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('real-estate.jpg')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                margin: 0,
+                minHeight: "100vh", // <- changed from height
+                width: "100%",
+                padding: "20px",
+            }}
+
+        >
+            <h1 style={{ margin: "70px auto 10px 30px", color: "#DEDFE9", fontFamily: "sans-serif" }}>
+                Who are we?
+            </h1>
+            <h4 style={{ margin: "0px auto 10px 30px", color: "#DEDFE9", lineHeight: 1.5 }}>
+                Welcome to BrightHomes Realty, your trusted real estate partner based in Lagos, Nigeria.
+                We specialize in property sales, rentals, and management — from affordable apartments to
+                luxury estates. Whether you’re a first-time homebuyer, a growing family, or an investor,
+                we are here to connect you with the right property.
+            </h4>
+
+            <div
                 style={{
-                    background: "rgba(0,77,102,0)",
-                    padding: "15px 40px",
                     display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    color: "white",
+                    flexWrap: "wrap",
+                    gap: "200px",
+                    justifyContent: "center",
+                    marginTop: "50px",
                 }}
             >
-                <h1 style={{ margin: 0, fontSize: "22px" }}>Enuluxe.ng</h1>
-                <nav>
-                    <Link to="/" style={linkStyle}>Home</Link>
-                    <Link to="/about" style={linkStyle}>About</Link>
-                    <Link to="/sell" style={linkStyle}>Sell</Link>
-                    <Link to="/register" style={linkStyle}>Register</Link>
-                    <Link to="/login" style={linkStyle}>Login</Link>
-                </nav>
-            </header>
+                {/* Mission */}
+                <div
+                    style={{
+                        backgroundColor: "rgba(222,223,233,0.58)",
+                        // boxShadow: "0px 0px 15px 5px #72d6ff, 0px 4px 15px rgba(0,0,0,0.2)",
+                        padding: "20px",
+                        borderRadius: "10px",
+                        width: "400px",
+                        maxWidth: "90%",
+                        height: "400px",
+                        boxSizing: "border-box",
+                    }}
+                >
+                    <h1 style={{ marginBottom: "10px", color: "#333", fontFamily: "sans-serif" }}>Mission</h1>
+                    <h4 style={{ color: "#333", lineHeight: 1.5 }}>
+                        Our mission is simple: to make finding a home stress-free, transparent, and rewarding.
+                        We believe everyone deserves a place they can truly call home — a space filled with comfort,
+                        security, and lasting memories. By combining expert guidance, trust, and innovation, we’re here
+                        to ensure your journey to homeownership is as smooth and fulfilling as possible.
+                    </h4>
+                </div>
 
-            {/* Registration form */}
-            <div className="register-page" style={{ padding: "30px" }}>
-                <div className="register-card" style={{ maxWidth: "600px", margin: "auto", marginTop: "100px" }}>
-                    <h1>Create account</h1>
-                    <h5>Find yourself the perfect property. Register with us today!</h5>
+                {/* Vision */}
+                <div
+                    style={{
+                        backgroundColor: "rgba(222,223,233,0.58)",
+                        padding: "20px",
+                        borderRadius: "10px",
+                        width: "400px",
+                        maxWidth: "90%",
+                        height: "400px",
+                        boxSizing: "border-box",
+                    }}
+                >
+                    <h2 style={{ color: "#333", fontFamily: "sans-serif", fontWeight: "bolder" }}>Vision</h2>
+                    <h4 style={{ color: "#333", lineHeight: 1.5 }}>
+                        Our vision is to become the leading real estate brand in Nigeria, known for integrity, innovation, and unmatched customer service
+                        — helping people turn their property dreams into reality.We aspire to redefine real estate by setting new standards of trust and excellence, while helping
+                        people transform their property dreams into lasting realities.
+                        Through continuous growth and forward-thinking solutions, we aim to be the first choice for
+                        individuals, families, and investors seeking a home or property they can truly value.
+                    </h4>
+                </div>
+            </div>
 
-                    {error && <p style={{ color: "red" }}>{error}</p>}
-                    {success && <p style={{ color: "green" }}>{success}</p>}
+            <h1 style={{ margin: "50px auto 20px 30px", color: "#DEDFE9", fontFamily: "sans-serif" }}>
+                Why choose us?
+            </h1>
 
-                    <form onSubmit={handleSubmit}>
-                        <div className="row" style={{ display: "flex", gap: "15px" }}>
-                            <div style={{ flex: 1 }}>
-                                <label htmlFor="firstName" className="required">First Name</label>
-                                <input
-                                    type="text"
-                                    id="firstName"
-                                    name="firstName"
-                                    value={form.firstName}
-                                    onChange={handleInputChange}
-                                    required
-                                />
-                            </div>
-                            <div style={{ flex: 1 }}>
-                                <label htmlFor="surname" className="required">Surname</label>
-                                <input
-                                    type="text"
-                                    id="surname"
-                                    name="surname"
-                                    value={form.surname}
-                                    onChange={handleInputChange}
-                                    required
-                                />
-                            </div>
-                        </div>
+            <div style={{ display: "flex", justifyContent: "center", gap: "30px", margin: "20px auto" }}>
+                {/* Card 1 */}
+                <div
+                    style={{
+                        textAlign: "center",
+                        padding: "20px",
+                        fontSize: "14px",
+                        lineHeight: 1.4,
+                        width: "200px",
+                        height: "200px",
+                        background: "rgba(222,223,233,0.58)",
+                        borderRadius: "50%",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        fontFamily: "sans-serif",
+                        fontWeight: "bold",
+                        color: "#333",
+                    }}
+                >
+                    Wide Range of Properties <br /> Homes for every lifestyle.
+                </div>
 
-                        <label htmlFor="email" className="required">Email address</label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            value={form.email}
-                            onChange={handleInputChange}
-                            required
-                        />
+                {/* Card 2 */}
+                <div
+                    style={{
+                        textAlign: "center",
+                        padding: "20px",
+                        fontSize: "14px",
+                        lineHeight: 1.4,
+                        width: "200px",
+                        height: "200px",
+                        background: "rgba(222,223,233,0.58)",
+                        borderRadius: "50%",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        fontFamily: "sans-serif",
+                        fontWeight: "bold",
+                        color: "#333",
+                    }}
+                >
+                    Expert Guidance <br /> Helping you find your dream home.
+                </div>
 
-                        <label htmlFor="phone" className="required">Phone Number</label>
-                        <input
-                            type="tel"
-                            id="phone"
-                            name="phone"
-                            value={form.phone}
-                            onChange={handleInputChange}
-                            required
-                        />
-
-                        <label htmlFor="password" className="required">Password</label>
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            value={form.password}
-                            onChange={handleInputChange}
-                            required
-                        />
-
-                        <div className="checkbox-container" style={{ display: "flex", alignItems: "center", margin: "15px 0" }}>
-                            <input
-                                type="checkbox"
-                                id="terms"
-                                name="terms"
-                                checked={form.terms}
-                                onChange={handleInputChange}
-                                required
-                                style={{ marginRight: "10px" }}
-                            />
-                            <label htmlFor="terms" style={{ fontSize: "14px", color: "#333" }}>
-                                By clicking register, you agree to our
-                                <a href="#"> Terms of Service </a> and <a href="#"> Privacy Policy</a>.
-                            </label>
-                        </div>
-
-                        <button type="submit">Register</button>
-
-                        <p style={{ marginTop: "10px" }}>
-                            Already have an account? <Link to="/login">Log in</Link>
-                        </p>
-                    </form>
+                {/* Card 3 */}
+                <div
+                    style={{
+                        textAlign: "center",
+                        padding: "20px",
+                        fontSize: "14px",
+                        lineHeight: 1.4,
+                        width: "200px",
+                        height: "200px",
+                        background: "rgba(222,223,233,0.58)",
+                        borderRadius: "50%",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        fontFamily: "sans-serif",
+                        fontWeight: "bold",
+                        color: "#333",
+                    }}
+                >
+                    Trusted Service <br /> Integrity and transparency always.
                 </div>
             </div>
         </div>
     );
-};
-
-const linkStyle = {
-    color: "white",
-    margin: "0 15px",
-    textDecoration: "none",
-    fontSize: "16px",
-};
-
-export default Register;
+}
