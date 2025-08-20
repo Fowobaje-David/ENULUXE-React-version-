@@ -1,4 +1,5 @@
 import React from "react";
+import Header from "../components/Header"; // ✅ Make sure the path is correct
 
 export default function AboutUs() {
     return (
@@ -9,17 +10,19 @@ export default function AboutUs() {
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
                 margin: 0,
-                minHeight: "100vh", // <- changed from height
+                minHeight: "100vh",
                 width: "100%",
                 padding: "20px",
             }}
-
         >
+            {/* ✅ Navbar/Header at the top */}
+            <Header />
+
             <h1 style={{ margin: "70px auto 10px 30px", color: "#DEDFE9", fontFamily: "sans-serif" }}>
                 Who are we?
             </h1>
             <h4 style={{ margin: "0px auto 10px 30px", color: "#DEDFE9", lineHeight: 1.5 }}>
-                Welcome to BrightHomes Realty, your trusted real estate partner based in Lagos, Nigeria.
+                Welcome to Enuluxe, your trusted real estate partner based in Lagos, Nigeria.
                 We specialize in property sales, rentals, and management — from affordable apartments to
                 luxury estates. Whether you’re a first-time homebuyer, a growing family, or an investor,
                 we are here to connect you with the right property.
@@ -38,7 +41,6 @@ export default function AboutUs() {
                 <div
                     style={{
                         backgroundColor: "rgba(222,223,233,0.58)",
-                        // boxShadow: "0px 0px 15px 5px #72d6ff, 0px 4px 15px rgba(0,0,0,0.2)",
                         padding: "20px",
                         borderRadius: "10px",
                         width: "400px",
@@ -71,7 +73,7 @@ export default function AboutUs() {
                     <h2 style={{ color: "#333", fontFamily: "sans-serif", fontWeight: "bolder" }}>Vision</h2>
                     <h4 style={{ color: "#333", lineHeight: 1.5 }}>
                         Our vision is to become the leading real estate brand in Nigeria, known for integrity, innovation, and unmatched customer service
-                        — helping people turn their property dreams into reality.We aspire to redefine real estate by setting new standards of trust and excellence, while helping
+                        — helping people turn their property dreams into reality. We aspire to redefine real estate by setting new standards of trust and excellence, while helping
                         people transform their property dreams into lasting realities.
                         Through continuous growth and forward-thinking solutions, we aim to be the first choice for
                         individuals, families, and investors seeking a home or property they can truly value.

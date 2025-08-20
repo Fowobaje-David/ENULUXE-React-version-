@@ -1,6 +1,5 @@
 import React from "react";
-import { Link } from 'react-router-dom';
-
+import { Link } from "react-router-dom";
 
 export default function Sell() {
     return (
@@ -18,10 +17,48 @@ export default function Sell() {
                 minHeight: "100vh",
             }}
         >
+            {/* HEADER SECTION */}
+            <header
+                style={{
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    padding: "1rem 3rem",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    background: "rgba(0, 0, 0, 0.35)",
+                    color: "#fff",
+                    zIndex: 1000,
+                    flexWrap: "wrap",
+                }}
+            >
+                {/* Logo */}
+                <div style={{ fontSize: "1.5rem", fontWeight: "bold", color: "#fff" }}>
+                    Enuluxe<span style={{ color: "#ffd700" }}>.ng</span>
+                </div>
+
+                {/* Navigation */}
+                <nav style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+                    <Link to="/buy" style={navLink}>Buy</Link>
+                    <Link to="/sell" style={navLink}>Sell</Link>
+                    <Link to="/rent" style={navLink}>Rent</Link>
+                    <Link to="/aboutus" style={navLink}>About Us</Link>
+                </nav>
+
+                {/* Auth buttons */}
+                <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+                    <Link to="/register" style={registerBtn}>Register</Link>
+                    <Link to="/login" style={loginBtn}>Log in</Link>
+                </div>
+            </header>
+
+            {/* CONTENT */}
             <div
                 style={{
                     maxWidth: "900px",
-                    margin: "40px auto",
+                    margin: "120px auto 40px", // pushed down so header doesn’t overlap
                     padding: "30px",
                     background: "white",
                     borderRadius: "12px",
@@ -75,9 +112,35 @@ export default function Sell() {
     );
 }
 
+// Styles
 const inputStyle = {
     padding: "12px",
     borderRadius: "8px",
     border: "1px solid #ccc",
     fontSize: "14px",
+};
+
+const navLink = {
+    color: "#fff",
+    textDecoration: "none",
+    fontWeight: 500,
+};
+
+const registerBtn = {
+    background: "#fff",
+    color: "#0b0b45",
+    padding: "0.4rem 0.9rem",
+    borderRadius: "6px",
+    textDecoration: "none",
+    fontSize: "0.9rem",
+};
+
+const loginBtn = {
+    background: "#0b0b45",
+    color: "#fff",
+    padding: "0.4rem 0.9rem",
+    borderRadius: "6px",
+    border: "1px solid #fff",
+    textDecoration: "none",
+    fontSize: "0.9rem",
 };

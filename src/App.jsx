@@ -9,6 +9,7 @@ import Sell from "./pages/Sell";
 import Buy from './pages/buy';
 import Rent from './pages/rent';
 
+
 function App() {
   return (
       <Router>
