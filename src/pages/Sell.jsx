@@ -1,7 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Sell() {
+    const [form, setForm] = useState({
+        fullName: "",
+        emailAddress: "",
+        phoneNumber: "",
+        propertyLocation: "",
+        askingPrice: "",
+        propertyType: "",
+        propertyDescription: "",
+        propertyImage: ""
+    });
+
+    const [loading, setLoading] = useState(false);
+
+    // handle text/number/email inputs
+    const handleChange = (e) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+    };
+
+    // handle submit
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+
+        try {
+            const response = await fetch("https://realestateapis.onrender.com/user/properties-for-sale/sell", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(form),
+            });
+
+            if (response.ok) {
+                alert("Property submitted successfully!");
+                setForm({
+                    fullName: "",
+                    emailAddress: "",
+                    phoneNumber: "",
+                    propertyLocation: "",
+                    askingPrice: "",
+                    propertyType: "",
+                    propertyDescription: "",
+                    propertyImage: ""
+                });
+            } else {
+                alert("Failed to submit property");
+            }
+        } catch (error) {
+            console.error(error);
+            alert("Error");
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <div
             style={{
@@ -54,11 +109,11 @@ export default function Sell() {
                 </div>
             </header>
 
-            {/* CONTENT */}
+            {/* Content */}
             <div
                 style={{
                     maxWidth: "900px",
-                    margin: "120px auto 40px", // pushed down so header doesn’t overlap
+                    margin: "120px auto 40px",
                     padding: "30px",
                     background: "white",
                     borderRadius: "12px",
@@ -71,29 +126,91 @@ export default function Sell() {
                     offering expert pricing guidance, and handling all the paperwork with transparency.
                 </p>
 
+                {/* FORM */}
                 <h3 style={{ marginTop: "30px", color: "#004d66" }}>Property Details</h3>
-                <form style={{ display: "grid", gap: "20px", marginTop: "20px" }}>
-                    <input type="text" placeholder="Full Name" style={inputStyle} />
-                    <input type="email" placeholder="Email Address" style={inputStyle} />
-                    <input type="tel" placeholder="Phone Number" style={inputStyle} />
-                    <input type="text" placeholder="Property Location" style={inputStyle} />
-                    <input type="number" placeholder="Asking Price (₦)" style={inputStyle} />
+                <form
+                    onSubmit={handleSubmit}
+                    style={{ display: "grid", gap: "20px", marginTop: "20px" }}
+                >
+                    <input
+                        type="text"
+                        name="fullName"
+                        value={form.fullName}
+                        onChange={handleChange}
+                        placeholder="Full Name"
+                        style={inputStyle}
+                    />
+                    <input
+                        type="email"
+                        name="emailAddress"
+                        value={form.emailAddress}
+                        onChange={handleChange}
+                        placeholder="Email Address"
+                        style={inputStyle}
+                    />
+                    <input
+                        type="text"
+                        name="phoneNumber"
+                        value={form.phoneNumber}
+                        onChange={handleChange}
+                        placeholder="Phone Number"
+                        style={inputStyle}
+                    />
+                    <input
+                        type="text"
+                        name="propertyLocation"
+                        value={form.propertyLocation}
+                        onChange={handleChange}
+                        placeholder="Property Location"
+                        style={inputStyle}
+                    />
+                    <input
+                        type="text"
+                        name="askingPrice"
+                        value={form.askingPrice}
+                        onChange={handleChange}
+                        placeholder="Asking Price (₦)"
+                        style={inputStyle}
+                    />
 
-                    <select style={inputStyle}>
-                        <option>Property Type</option>
-                        <option>House</option>
-                        <option>Apartment</option>
-                        <option>Land</option>
-                        <option>Commercial Property</option>
+                    <select
+                        name="propertyType"
+                        value={form.propertyType}
+                        onChange={handleChange}
+                        style={inputStyle}
+                    >
+                        <option value="">Property Type</option>
+                        <option value="HOUSE">House</option>
+                        <option value="apartment">Apartment</option>
+                        <option value="land">Land</option>
+                        <option value="commercial">Commercial Property</option>
                     </select>
 
-                    <textarea placeholder="Property Description" rows="4" style={inputStyle}></textarea>
+                    <textarea
+                        name="propertyDescription"
+                        value={form.propertyDescription}
+                        onChange={handleChange}
+                        placeholder="Property Description"
+                        rows="4"
+                        style={inputStyle}
+                    ></textarea>
 
-                    <label style={{ fontSize: "14px", color: "#333" }}>Upload Property Images:</label>
-                    <input type="file" multiple style={{ padding: "8px" }} />
+                    <label style={{ fontSize: "14px", color: "#333" }}>
+                        Upload Property Images:
+                    </label>
+                    <input
+                        type="text"
+                        name="propertyImage"
+                        value={form.propertyImage}
+                        onChange={handleChange}
+                        placeholder="Image URL"
+                        style={inputStyle}
+                    />
 
+                    {/* Loading Button */}
                     <button
                         type="submit"
+                        disabled={loading}
                         style={{
                             background: "#004d66",
                             color: "white",
@@ -101,13 +218,42 @@ export default function Sell() {
                             fontSize: "16px",
                             border: "none",
                             borderRadius: "8px",
-                            cursor: "pointer",
+                            cursor: loading ? "not-allowed" : "pointer",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            gap: "10px"
                         }}
                     >
-                        Submit Property
+                        {loading ? (
+                            <>
+                                <span className="spinner" style={{
+                                    width: "18px",
+                                    height: "18px",
+                                    border: "3px solid #fff",
+                                    borderTop: "3px solid transparent",
+                                    borderRadius: "50%",
+                                    display: "inline-block",
+                                    animation: "spin 1s linear infinite"
+                                }}></span>
+                                Submitting...
+                            </>
+                        ) : (
+                            "Submit Property"
+                        )}
                     </button>
                 </form>
             </div>
+
+            {/* Spinner Animation */}
+            <style>
+                {`
+                @keyframes spin {
+                    from { transform: rotate(0deg); }
+                    to { transform: rotate(360deg); }
+                }
+                `}
+            </style>
         </div>
     );
 }

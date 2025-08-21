@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
@@ -10,9 +9,9 @@ const Login = () => {
         username: "",
         password: "",
     });
+    const [loading, setLoading] = useState(false); // 👈 loading state
 
     useEffect(() => {
-        // Load Google script dynamically
         const scriptId = "google-client-script";
         if (!document.getElementById(scriptId)) {
             const script = document.createElement("script");
@@ -23,13 +22,11 @@ const Login = () => {
             document.body.appendChild(script);
         }
 
-        // Initialize Google Sign-In
         window.onload = () => {
             if (window.google) {
                 window.google.accounts.id.initialize({
                     client_id: CLIENT_ID,
                     callback: () => {
-                        // redirect on successful sign in
                         window.location.href = "/";
                     },
                     ux_mode: "popup",
@@ -57,7 +54,7 @@ const Login = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!formData.username || !formData.password) {
@@ -65,16 +62,24 @@ const Login = () => {
             return;
         }
 
-        console.log("Login data:", formData);
-        alert("Login successful! Welcome back to Enuluxe.ng");
+        setLoading(true); // 👈 start loading
 
-        setFormData({
-            username: "",
-            password: "",
-        });
+        try {
+            // fake API call delay (replace with your backend call)
+            await new Promise((resolve) => setTimeout(resolve, 1500));
+
+            console.log("Login data:", formData);
+            alert("Login successful! Welcome back to Enuluxe.ng");
+
+            setFormData({ username: "", password: "" });
+        } catch (error) {
+            console.error("Login failed", error);
+            alert("Login failed. Try again.");
+        } finally {
+            setLoading(false); // 👈 stop loading
+        }
     };
 
-    // Inline styles
     const styles = {
         body: {
             margin: 0,
@@ -125,6 +130,18 @@ const Login = () => {
             borderRadius: "6px",
             fontSize: "16px",
             cursor: "pointer",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "8px",
+        },
+        spinner: {
+            border: "3px solid #f3f3f3",
+            borderTop: "3px solid #fff",
+            borderRadius: "50%",
+            width: "16px",
+            height: "16px",
+            animation: "spin 1s linear infinite",
         },
         signup: { marginTop: "20px", fontSize: "14px" },
         signupLink: { color: "#00005c", textDecoration: "none" },
@@ -136,7 +153,6 @@ const Login = () => {
                 <div style={styles.container}>
                     <h2 style={styles.h2}>Welcome back</h2>
 
-                    {/* Google Sign-In */}
                     <div id="g_id_signin" style={{ marginBottom: "20px" }}></div>
 
                     <div style={styles.divider}>or</div>
@@ -168,14 +184,16 @@ const Login = () => {
                         <button
                             type="submit"
                             style={styles.button}
-                            onMouseOver={(e) =>
-                                (e.target.style.backgroundColor = "#000042")
-                            }
-                            onMouseOut={(e) =>
-                                (e.target.style.backgroundColor = "#00005c")
-                            }
+                            disabled={loading} // 👈 disable button when loading
                         >
-                            Log in
+                            {loading ? (
+                                <>
+                                    <div style={styles.spinner}></div>
+                                    Loading...
+                                </>
+                            ) : (
+                                "Log in"
+                            )}
                         </button>
                     </form>
 

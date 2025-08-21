@@ -8,12 +8,13 @@ const Register = () => {
     firstName: '',
     surname: '',
     email: '',
-    phonenumber: '',
+    phone: '',
     password: '',
     terms: false
   });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [loading, setLoading] = useState(false); // 🔹 NEW
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -25,49 +26,39 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('handleSubmit fired'); // to help and  check if form submits
-
     if (!form.terms) {
       alert('Please accept the terms and conditions.');
       return;
     }
 
-    console.log('Form data being sent:', form);
-
     try {
-      await
-          axios.post(
-              'https://realestateapis.onrender.com/user/signup',
-              form
-          );
+      setLoading(true); // 🔹 Start loading
+      await axios.post(
+          'https://realestateapis.onrender.com/user/signup',
+          form
+      );
 
-      console.log('Response from backend:');
       setSuccess('Registration successful! You can now log in.');
       setError('');
-
-
       setForm({
         firstName: '',
         surname: '',
         email: '',
-        phonenumber: '',
+        phone: '',
         password: '',
         terms: false
       });
 
-      // it will now redirect after 1.5 secs
       setTimeout(() => navigate('/login'), 1500);
     } catch (err) {
-      console.error('Error during registration:', err);
-
       if (err.response) {
-        console.log('Backend response:', err.response.data);
         setError(err.response.data.message || 'Registration failed');
       } else {
         setError('Registration failed.');
       }
-
       setSuccess('');
+    } finally {
+      setLoading(false); // 🔹 Stop loading
     }
   };
 
@@ -175,7 +166,24 @@ const Register = () => {
                 </label>
               </div>
 
-              <button type="submit">Register</button>
+              {/* 🔹 Button shows loading spinner while submitting */}
+              <button type="submit" disabled={loading} style={{ padding: "10px 20px" }}>
+                {loading ? (
+                    <span>
+                  <span className="spinner" style={{
+                    border: "2px solid #f3f3f3",
+                    borderTop: "2px solid #3498db",
+                    borderRadius: "50%",
+                    width: "14px",
+                    height: "14px",
+                    animation: "spin 1s linear infinite",
+                    display: "inline-block",
+                    marginRight: "8px"
+                  }}></span>
+                  Loading...
+                </span>
+                ) : "Register"}
+              </button>
 
               <p style={{ marginTop: "10px" }}>
                 Already have an account? <Link to="/login">Log in</Link>
@@ -183,6 +191,16 @@ const Register = () => {
             </form>
           </div>
         </div>
+
+        {/* 🔹 CSS for spinner animation */}
+        <style>
+          {`
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+        `}
+        </style>
       </div>
   );
 };
