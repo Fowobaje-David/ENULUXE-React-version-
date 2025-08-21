@@ -1,18 +1,20 @@
-
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import api from "../axios.jsx";
 
 const CLIENT_ID =
     "746210027077-qj0dikikmqi7cru23fv9v7h42fn5u9k4.apps.googleusercontent.com";
 
 const Login = () => {
-    const [formData, setFormData] = useState({
-        username: "",
+    const [form, setForm] = useState({
+        email: "",
         password: "",
     });
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
-        // Load Google script dynamically
         const scriptId = "google-client-script";
         if (!document.getElementById(scriptId)) {
             const script = document.createElement("script");
@@ -20,17 +22,36 @@ const Login = () => {
             script.async = true;
             script.defer = true;
             script.id = scriptId;
-            document.body.appendChild(script);
-        }
+            script.onload = () => {
+                if (window.google) {
+                    window.google.accounts.id.initialize({
+                        client_id: CLIENT_ID,
+                        callback: () => {
+                            navigate("/"); // redirect after login
+                        },
+                        ux_mode: "popup",
+                    });
 
-        // Initialize Google Sign-In
-        window.onload = () => {
+                    window.google.accounts.id.renderButton(
+                        document.getElementById("g_id_signin"),
+                        {
+                            theme: "outline",
+                            size: "large",
+                            text: "signin_with",
+                            shape: "pill",
+                            width: "100%",
+                        }
+                    );
+                }
+            };
+            document.body.appendChild(script);
+        } else {
+            // Script already loaded → just render button
             if (window.google) {
                 window.google.accounts.id.initialize({
                     client_id: CLIENT_ID,
                     callback: () => {
-                        // redirect on successful sign in
-                        window.location.href = "/";
+                        navigate("/");
                     },
                     ux_mode: "popup",
                 });
@@ -46,35 +67,39 @@ const Login = () => {
                     }
                 );
             }
-        };
-    }, []);
+        }
+    }, [navigate]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData((prev) => ({
+        setForm((prev) => ({
             ...prev,
             [name]: value,
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!formData.username || !formData.password) {
-            alert("Please fill in all fields.");
+        if (!form.email || !form.password) {
+            setError("Please fill in all fields.");
             return;
         }
 
-        console.log("Login data:", formData);
-        alert("Login successful! Welcome back to Enuluxe.ng");
+        try {
+            const res = await api.post("https://realestateapis.onrender.com/user/login", form);
+            setSuccess("Login successful! Redirecting...");
+            setError("");
+            console.log("Backend response:", res.data);
 
-        setFormData({
-            username: "",
-            password: "",
-        });
+            setTimeout(() => navigate("/"), 1500);
+        } catch (err) {
+            setError(err.response?.data?.message || "Login failed");
+            setSuccess("");
+        }
     };
 
-    // Inline styles
+    // Styles
     const styles = {
         body: {
             margin: 0,
@@ -128,6 +153,9 @@ const Login = () => {
         },
         signup: { marginTop: "20px", fontSize: "14px" },
         signupLink: { color: "#00005c", textDecoration: "none" },
+        message: { marginTop: "10px", fontSize: "14px" },
+        error: { color: "red" },
+        success: { color: "green" },
     };
 
     return (
@@ -144,9 +172,9 @@ const Login = () => {
                     <form onSubmit={handleSubmit}>
                         <input
                             type="text"
-                            placeholder="Username or Email"
-                            name="username"
-                            value={formData.username}
+                            placeholder="Email"
+                            name="email"
+                            value={form.email}
                             onChange={handleInputChange}
                             required
                             style={styles.input}
@@ -155,7 +183,7 @@ const Login = () => {
                             type="password"
                             placeholder="Password"
                             name="password"
-                            value={formData.password}
+                            value={form.password}
                             onChange={handleInputChange}
                             required
                             style={styles.input}
@@ -178,6 +206,9 @@ const Login = () => {
                             Log in
                         </button>
                     </form>
+
+                    {error && <p style={{ ...styles.message, ...styles.error }}>{error}</p>}
+                    {success && <p style={{ ...styles.message, ...styles.success }}>{success}</p>}
 
                     <p style={styles.signup}>
                         Don't have an account?{" "}
