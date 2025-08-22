@@ -12,7 +12,7 @@ const LandingPage = () => {
       alert('Please enter a location to search for properties.');
       return;
     }
-    
+
     alert(`Searching for properties in: ${location}`);
     console.log('Searching for properties in:', location);
   };
@@ -119,7 +119,7 @@ const LandingPage = () => {
   return (
     <>
       <Header />
-      
+
       <section className="hero">
         <div className="overlay"></div>
         <div className="hero-content">
@@ -127,9 +127,9 @@ const LandingPage = () => {
           <p>We connect buyers, renters and landlords by simplifying their property search process and fostering transparent and efficient transactions, providing you the perfect property!</p>
           <div className="search-container">
             <div className="search-bar">
-              <input 
-                type="text" 
-                placeholder="Enter your location..." 
+              <input
+                type="text"
+                placeholder="Enter your location..."
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 onKeyPress={handleKeyPress}
@@ -142,7 +142,7 @@ const LandingPage = () => {
 
       <div className="stats">
         <div className="stat">
-          <span 
+          <span
             className="countup"
             data-from="0"
             data-to="30000"
@@ -155,7 +155,7 @@ const LandingPage = () => {
           <p> + Properties sold</p>
         </div>
         <div className="stat">
-          <span 
+          <span
             className="countup"
             data-from="0"
             data-to="10"
@@ -164,10 +164,10 @@ const LandingPage = () => {
           >
             0
           </span>
-          <p>Years of experience</p> 
+          <p>Years of experience</p>
         </div>
         <div className="stat">
-          <span 
+          <span
             className="countup"
             data-from="500"
             data-to="12000"
@@ -396,10 +396,10 @@ const LandingPage = () => {
             <h2>Subscribe to Our Newsletter</h2>
             <p>Get full details on new listings</p>
             <form className="newsletter-form" onSubmit={handleNewsletterSubmit}>
-              <input 
-                type="email" 
-                placeholder=" your email address" 
-                required 
+              <input
+                type="email"
+                placeholder=" your email address"
+                required
                 value={newsletterEmail}
                 onChange={(e) => setNewsletterEmail(e.target.value)}
               />

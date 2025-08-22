@@ -171,7 +171,7 @@ const BuyPage = () => {
                                 <a href="#" className="btn btn-details">
                                     View Details
                                 </a>
-                                <a href="http://localhost:8084/payments/buy/{propertId}" className="btn btn-buy">
+                                <a href="https://realestateapis.onrender.com/payments/buy/{propertId}" className="btn btn-buy">
                                     Book Inspection
                                 </a>
                             </div>
