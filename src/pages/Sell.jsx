@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Sell() {
+    const navigate = useNavigate();
+
     const [form, setForm] = useState({
         fullName: "",
         emailAddress: "",
@@ -35,17 +37,8 @@ export default function Sell() {
             });
 
             if (response.ok) {
-                alert("Property submitted successfully!");
-                setForm({
-                    fullName: "",
-                    emailAddress: "",
-                    phoneNumber: "",
-                    propertyLocation: "",
-                    askingPrice: "",
-                    propertyType: "",
-                    propertyDescription: "",
-                    propertyImage: ""
-                });
+                // redirect to success page instead of alert
+                navigate("/sell-success");
             } else {
                 alert("Failed to submit property");
             }
