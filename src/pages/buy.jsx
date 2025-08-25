@@ -1,88 +1,322 @@
-import React, { useState } from "react";
-import "./buy.css"; // keep your styling
-import Header from "../components/Header"; // the shared one
+// import React, { useState } from "react";
+// import "./buy.css"; // keep your styling
+// import Header from "../components/Header"; // the shared one
+//
+// const BuyPage = () => {
+//     const [filters, setFilters] = useState({
+//         type: "all",
+//         bedrooms: "all",
+//         price: "all",
+//         location: ""
+//     });
+//
+//     // sample property data
+//     const properties = [
+//         {
+//             id: 1,
+//             type: "duplex",
+//             bedrooms: 4,
+//             price: "mid",
+//             location: "Independence Layout",
+//             img: "/Twin-duplex.jpg",
+//             title: "Luxury Duplex",
+//             details: "4 Beds • 4 Baths • 3,500 sqft",
+//             address: "Independence Layout, Enugu",
+//             cost: "₦3,500,000"
+//         },
+//         {
+//             id: 2,
+//             type: "apartment",
+//             bedrooms: 2,
+//             price: "low",
+//             location: "Udi",
+//             img: "/Air-bnb.jpg",
+//             title: "Modern Apartment",
+//             details: "2 Beds • 2 Baths • 1,200 sqft",
+//             address: "Udi, Enugu",
+//             cost: "₦900,000"
+//         },
+//         {
+//             id: 3,
+//             type: "bungalow",
+//             bedrooms: 3,
+//             price: "mid",
+//             location: "Owo",
+//             img: "/Bungalow.jpg",
+//             title: "Family Bungalow",
+//             details: "3 Beds • 2 Baths • 2,000 sqft",
+//             address: "Owo, Enugu",
+//             cost: "₦2,500,000"
+//         },
+//         {
+//             id: 4,
+//             type: "house",
+//             bedrooms: 5,
+//             price: "luxury",
+//             location: "Nsukka",
+//             img: "/Semi-detached.jpg",
+//             title: "Luxury Mansion",
+//             details: "5 Beds • 6 Baths • 6,500 sqft",
+//             address: "Nsukka, Enugu",
+//             cost: "₦20,000,000"
+//         },
+//         {
+//             id: 5,
+//             type: "house",
+//             bedrooms: 3,
+//             price: "mid",
+//             location: "Udenu",
+//             img: "/Semi-detached2.jpg",
+//             title: "Semi-detached",
+//             details: "3 Beds • 2 Baths • 2,500 sqft",
+//             address: "Udenu, Enugu",
+//             cost: "₦7,500,000"
+//         }
+//     ];
+//
+//     // filtering logic (React version of applyFilters)
+//     const filteredProperties = properties.filter((p) => {
+//         const matchType = filters.type === "all" || p.type === filters.type;
+//         const matchBeds =
+//             filters.bedrooms === "all" || p.bedrooms >= parseInt(filters.bedrooms);
+//         const matchPrice = filters.price === "all" || p.price === filters.price;
+//         const matchLocation =
+//             filters.location.trim() === "" ||
+//             p.location.toLowerCase().includes(filters.location.toLowerCase());
+//
+//         return matchType && matchBeds && matchPrice && matchLocation;
+//     });
+//
+//     return (
+//         <>
+//             {/* shared header */}
+//             <Header />
+//
+//             {/* Hero Section */}
+//             <section className="hero">
+//                 <div className="hero-overlay">
+//                     <h1>Find Your Dream Home</h1>
+//                     <p>Browse through exclusive listings tailored to your needs</p>
+//
+//                     <div className="filter-bar">
+//                         <select
+//                             value={filters.type}
+//                             onChange={(e) => setFilters({ ...filters, type: e.target.value })}
+//                         >
+//                             <option value="all">Property Type</option>
+//                             <option value="house">House</option>
+//                             <option value="duplex">Duplex</option>
+//                             <option value="apartment">Apartment</option>
+//                             <option value="bungalow">Bungalow</option>
+//                         </select>
+//
+//                         <select
+//                             value={filters.bedrooms}
+//                             onChange={(e) =>
+//                                 setFilters({ ...filters, bedrooms: e.target.value })
+//                             }
+//                         >
+//                             <option value="all">Bedrooms</option>
+//                             <option value="1">1+</option>
+//                             <option value="2">2+</option>
+//                             <option value="3">3+</option>
+//                             <option value="4">4+</option>
+//                         </select>
+//
+//                         <select
+//                             value={filters.price}
+//                             onChange={(e) =>
+//                                 setFilters({ ...filters, price: e.target.value })
+//                             }
+//                         >
+//                             <option value="all">Price Range</option>
+//                             <option value="low">₦500k - ₦1M</option>
+//                             <option value="mid">₦1M - ₦5M</option>
+//                             <option value="high">₦5M - ₦10M</option>
+//                             <option value="luxury">Above ₦10M</option>
+//                         </select>
+//
+//                         <input
+//                             type="text"
+//                             placeholder="Search by Location (e.g Owo)"
+//                             value={filters.location}
+//                             onChange={(e) =>
+//                                 setFilters({ ...filters, location: e.target.value })
+//                             }
+//                         />
+//
+//                         <button>Find Homes</button>
+//                     </div>
+//                 </div>
+//             </section>
+//
+//             {/* Property Listings */}
+//             <section className="property-grid">
+//                 {filteredProperties.map((p) => (
+//                     <div
+//                         key={p.id}
+//                         className="property-card"
+//                         data-type={p.type}
+//                         data-bedrooms={p.bedrooms}
+//                         data-price={p.price}
+//                         data-location={p.location}
+//                     >
+//                         <img src={p.img} alt={p.title} />
+//                         <div className="property-info">
+//                             <h3>{p.title}</h3>
+//                             <p>{p.details}</p>
+//                             <p>{p.address}</p>
+//                             <p className="price">{p.cost}</p>
+//                             <div className="btn-group">
+//                                 <a href="#" className="btn btn-details">
+//                                     View Details
+//                                 </a>
+//                                 <a href="https://realestateapis.onrender.com/payments/buy/{propertId}" className="btn btn-buy">
+//                                     Book Inspection
+//                                 </a>
+//                             </div>
+//                         </div>
+//                     </div>
+//                 ))}
+//             </section>
+//
+//             {/* ✅ Custom footer only for Buy Page */}
+//             <footer className="site-footer">
+//                 <div className="footer-content">
+//                     <div className="footer-section">
+//                         <h3>Enuluxe.ng</h3>
+//                         <p>
+//                             Enuluxe.ng is now available on iOS, Android and Chrome. Use
+//                             our website to explore the world.
+//                         </p>
+//                     </div>
+//                     <div className="footer-section">
+//                         <h4>Pages</h4>
+//                         <ul>
+//                             <li><a href="/buy">Buy</a></li>
+//                             <li><a href="/sell">Sell</a></li>
+//                             <li><a href="/rent">Rent</a></li>
+//                             <li><a href="/aboutus">About Us</a></li>
+//                             {/*<li><a href="/paymentsuccess">Payment Success</a></li>*/}
+//                         </ul>
+//                     </div>
+//                     <div className="footer-section">
+//                         <h4>Resources</h4>
+//                         <ul>
+//                             <li><a href="#">Home Buying Guide</a></li>
+//                             <li><a href="#">Foreclosure Center</a></li>
+//                             <li><a href="#">Contact Realtors</a></li>
+//                         </ul>
+//                     </div>
+//                     <div className="footer-section">
+//                         <h4>Follow Us</h4>
+//                         <div className="social-links">
+//                             <a href="https://www.instagram.com">
+//                                 <i className="fab fa-instagram"></i>
+//                             </a>
+//                             <a href="https://www.facebook.com">
+//                                 <i className="fab fa-facebook-f"></i>
+//                             </a>
+//                             <a href="https://www.twitter.com">
+//                                 <i className="fab fa-twitter"></i>
+//                             </a>
+//                             <a href="https://www.linkedin.com">
+//                                 <i className="fab fa-linkedin-in"></i>
+//                             </a>
+//                         </div>
+//                     </div>
+//                 </div>
+//                 <div className="footer-bottom">
+//                     <p>&copy; 2025 PropertyLink.ng. All rights reserved.</p>
+//                 </div>
+//             </footer>
+//         </>
+//     );
+// };
+//
+// export default BuyPage;
+import React, { useState, useEffect } from "react";
+import "./buy.css";
+import Header from "../components/Header";
+import axios from "axios";
 
 const BuyPage = () => {
     const [filters, setFilters] = useState({
         type: "all",
         bedrooms: "all",
         price: "all",
-        location: ""
+        location: "",
     });
 
-    // sample property data
-    const properties = [
-        {
-            id: 1,
-            type: "duplex",
-            bedrooms: 4,
-            price: "mid",
-            location: "Independence Layout",
-            img: "/Twin-duplex.jpg",
-            title: "Luxury Duplex",
-            details: "4 Beds • 4 Baths • 3,500 sqft",
-            address: "Independence Layout, Enugu",
-            cost: "₦3,500,000"
-        },
-        {
-            id: 2,
-            type: "apartment",
-            bedrooms: 2,
-            price: "low",
-            location: "Udi",
-            img: "/Air-bnb.jpg",
-            title: "Modern Apartment",
-            details: "2 Beds • 2 Baths • 1,200 sqft",
-            address: "Udi, Enugu",
-            cost: "₦900,000"
-        },
-        {
-            id: 3,
-            type: "bungalow",
-            bedrooms: 3,
-            price: "mid",
-            location: "Owo",
-            img: "/Bungalow.jpg",
-            title: "Family Bungalow",
-            details: "3 Beds • 2 Baths • 2,000 sqft",
-            address: "Owo, Enugu",
-            cost: "₦2,500,000"
-        },
-        {
-            id: 4,
-            type: "house",
-            bedrooms: 5,
-            price: "luxury",
-            location: "Nsukka",
-            img: "/Semi-detached.jpg",
-            title: "Luxury Mansion",
-            details: "5 Beds • 6 Baths • 6,500 sqft",
-            address: "Nsukka, Enugu",
-            cost: "₦20,000,000"
-        },
-        {
-            id: 5,
-            type: "house",
-            bedrooms: 3,
-            price: "mid",
-            location: "Udenu",
-            img: "/Semi-detached2.jpg",
-            title: "Semi-detached",
-            details: "3 Beds • 2 Baths • 2,500 sqft",
-            address: "Udenu, Enugu",
-            cost: "₦7,500,000"
-        }
-    ];
+    const [properties, setProperties] = useState([]);
 
-    // filtering logic (React version of applyFilters)
+    // 👤 Hardcoded email for now (replace with logged-in user email later)
+    const userEmail = "testuser@email.com";
+
+    // ✅ Fetch properties from backend on mount
+    useEffect(() => {
+        axios
+            .get("https://realestateapis.onrender.com/properties")
+            .then((res) => {
+                console.log("API response:", res.data);
+                setProperties(res.data);
+            })
+            .catch((err) => {
+                console.error("Error fetching properties:", err);
+            });
+    }, []);
+
+    // ✅ Handle Book Inspection payment
+    const handleBookInspection = async (property) => {
+        try {
+            const payload = {
+                email: userEmail,
+                amount: property.property_price, // or use a fixed inspection fee
+                callback_url: "https://enuluxeng.netlify.app/paymentsuccess", // redirect after payment
+            };
+
+            const res = await axios.post(
+                `https://realestateapis.onrender.com/payments/buy/${property.id}`,
+                payload
+            );
+
+            console.log("Payment init response:", res.data);
+
+            if (res.data?.authorization_url) {
+                // redirect user to Paystack checkout
+                window.location.href = res.data.authorization_url;
+            } else {
+                alert("Failed to initiate payment");
+            }
+        } catch (err) {
+            console.error("Payment error:", err);
+            alert("Error initiating payment. Please try again.");
+        }
+    };
+
+    // filtering logic
     const filteredProperties = properties.filter((p) => {
-        const matchType = filters.type === "all" || p.type === filters.type;
+        const matchType = filters.type === "all" || p.property_type === filters.type;
         const matchBeds =
-            filters.bedrooms === "all" || p.bedrooms >= parseInt(filters.bedrooms);
-        const matchPrice = filters.price === "all" || p.price === filters.price;
+            filters.bedrooms === "all" ||
+            parseInt(p.no_of_rooms) >= parseInt(filters.bedrooms);
+
+        // handle price ranges
+        let priceCategory = "mid";
+        if (p.property_price <= 1000000) priceCategory = "low";
+        else if (p.property_price > 1000000 && p.property_price <= 5000000)
+            priceCategory = "mid";
+        else if (p.property_price > 5000000 && p.property_price <= 10000000)
+            priceCategory = "high";
+        else if (p.property_price > 10000000) priceCategory = "luxury";
+
+        const matchPrice = filters.price === "all" || filters.price === priceCategory;
         const matchLocation =
             filters.location.trim() === "" ||
-            p.location.toLowerCase().includes(filters.location.toLowerCase());
+            (p.property_information &&
+                p.property_information
+                    .toLowerCase()
+                    .includes(filters.location.toLowerCase()));
 
         return matchType && matchBeds && matchPrice && matchLocation;
     });
@@ -156,24 +390,30 @@ const BuyPage = () => {
                     <div
                         key={p.id}
                         className="property-card"
-                        data-type={p.type}
-                        data-bedrooms={p.bedrooms}
-                        data-price={p.price}
-                        data-location={p.location}
+                        data-type={p.property_type}
+                        data-bedrooms={p.no_of_rooms}
+                        data-price={p.property_price}
+                        data-location={p.property_information}
                     >
-                        <img src={p.img} alt={p.title} />
+                        <img src={p.property_image} alt={p.property_type} />
                         <div className="property-info">
-                            <h3>{p.title}</h3>
-                            <p>{p.details}</p>
-                            <p>{p.address}</p>
-                            <p className="price">{p.cost}</p>
+                            <h3>{p.property_type}</h3>
+                            <p>
+                                {p.no_of_rooms} Beds • {p.no_of_bathrooms} Baths •{" "}
+                                {p.size_of_property} sqft
+                            </p>
+                            <p>{p.property_information}</p>
+                            <p className="price">₦{p.property_price?.toLocaleString()}</p>
                             <div className="btn-group">
                                 <a href="#" className="btn btn-details">
                                     View Details
                                 </a>
-                                <a href="https://realestateapis.onrender.com/payments/buy/{propertId}" className="btn btn-buy">
+                                <button
+                                    className="btn btn-buy"
+                                    onClick={() => handleBookInspection(p)}
+                                >
                                     Book Inspection
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -186,26 +426,39 @@ const BuyPage = () => {
                     <div className="footer-section">
                         <h3>Enuluxe.ng</h3>
                         <p>
-                            Enuluxe.ng is now available on iOS, Android and Chrome. Use
-                            our website to explore the world.
+                            Enuluxe.ng is now available on iOS, Android and Chrome. Use our
+                            website to explore the world.
                         </p>
                     </div>
                     <div className="footer-section">
                         <h4>Pages</h4>
                         <ul>
-                            <li><a href="/buy">Buy</a></li>
-                            <li><a href="/sell">Sell</a></li>
-                            <li><a href="/rent">Rent</a></li>
-                            <li><a href="/aboutus">About Us</a></li>
-                            {/*<li><a href="/paymentsuccess">Payment Success</a></li>*/}
+                            <li>
+                                <a href="/buy">Buy</a>
+                            </li>
+                            <li>
+                                <a href="/sell">Sell</a>
+                            </li>
+                            <li>
+                                <a href="/rent">Rent</a>
+                            </li>
+                            <li>
+                                <a href="/aboutus">About Us</a>
+                            </li>
                         </ul>
                     </div>
                     <div className="footer-section">
                         <h4>Resources</h4>
                         <ul>
-                            <li><a href="#">Home Buying Guide</a></li>
-                            <li><a href="#">Foreclosure Center</a></li>
-                            <li><a href="#">Contact Realtors</a></li>
+                            <li>
+                                <a href="#">Home Buying Guide</a>
+                            </li>
+                            <li>
+                                <a href="#">Foreclosure Center</a>
+                            </li>
+                            <li>
+                                <a href="#">Contact Realtors</a>
+                            </li>
                         </ul>
                     </div>
                     <div className="footer-section">
