@@ -10,6 +10,7 @@ const Login = () => {
         email: "",
         password: "",
     });
+    const [loading, setLoading] = useState(false); // 👈 loader state
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
     const navigate = useNavigate();
@@ -26,8 +27,9 @@ const Login = () => {
                 if (window.google) {
                     window.google.accounts.id.initialize({
                         client_id: CLIENT_ID,
-                        callback: () => {
-                            navigate("/"); // redirect after login
+                        callback: (response) => {
+                            localStorage.setItem("token", response.credential);
+                            navigate("/");
                         },
                         ux_mode: "popup",
                     });
@@ -45,28 +47,6 @@ const Login = () => {
                 }
             };
             document.body.appendChild(script);
-        } else {
-            // Script already loaded → just render button
-            if (window.google) {
-                window.google.accounts.id.initialize({
-                    client_id: CLIENT_ID,
-                    callback: () => {
-                        navigate("/");
-                    },
-                    ux_mode: "popup",
-                });
-
-                window.google.accounts.id.renderButton(
-                    document.getElementById("g_id_signin"),
-                    {
-                        theme: "outline",
-                        size: "large",
-                        text: "signin_with",
-                        shape: "pill",
-                        width: "100%",
-                    }
-                );
-            }
         }
     }, [navigate]);
 
@@ -86,16 +66,26 @@ const Login = () => {
             return;
         }
 
+        setLoading(true); // start loader
         try {
-            const res = await api.post("https://realestateapis.onrender.com/user/login", form);
+            const res = await api.post(
+                "https://realestateapis.onrender.com/user/login",
+                form
+            );
+
+            if (res.data?.token) {
+                localStorage.setItem("token", res.data.token); // save token
+            }
+
             setSuccess("Login successful! Redirecting...");
             setError("");
-            console.log("Backend response:", res.data);
 
             setTimeout(() => navigate("/"), 1500);
         } catch (err) {
             setError(err.response?.data?.message || "Login failed");
             setSuccess("");
+        } finally {
+            setLoading(false); // stop loader
         }
     };
 
@@ -150,6 +140,18 @@ const Login = () => {
             borderRadius: "6px",
             fontSize: "16px",
             cursor: "pointer",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "8px",
+        },
+        spinner: {
+            border: "3px solid #f3f3f3",
+            borderTop: "3px solid #fff",
+            borderRadius: "50%",
+            width: "16px",
+            height: "16px",
+            animation: "spin 1s linear infinite",
         },
         signup: { marginTop: "20px", fontSize: "14px" },
         signupLink: { color: "#00005c", textDecoration: "none" },
@@ -196,6 +198,7 @@ const Login = () => {
                         <button
                             type="submit"
                             style={styles.button}
+                            disabled={loading}
                             onMouseOver={(e) =>
                                 (e.target.style.backgroundColor = "#000042")
                             }
@@ -203,12 +206,21 @@ const Login = () => {
                                 (e.target.style.backgroundColor = "#00005c")
                             }
                         >
-                            Log in
+                            {loading ? (
+                                <>
+                                    <div style={styles.spinner}></div>
+                                    Loading...
+                                </>
+                            ) : (
+                                "Log in"
+                            )}
                         </button>
                     </form>
 
                     {error && <p style={{ ...styles.message, ...styles.error }}>{error}</p>}
-                    {success && <p style={{ ...styles.message, ...styles.success }}>{success}</p>}
+                    {success && (
+                        <p style={{ ...styles.message, ...styles.success }}>{success}</p>
+                    )}
 
                     <p style={styles.signup}>
                         Don't have an account?{" "}
@@ -223,3 +235,4 @@ const Login = () => {
 };
 
 export default Login;
+
