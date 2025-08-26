@@ -97,6 +97,9 @@ const Header = () => {
 
             {/* Nav Links */}
             <nav style={styles.nav}>
+                <Link to="/" style={styles.navLink}>
+                    Home
+                </Link>
                 <Link to="/buy" style={styles.navLink}>
                     Buy
                 </Link>
